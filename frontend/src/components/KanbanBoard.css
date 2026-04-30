@@ -1,20 +1,18 @@
 .kanban-board {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Narrower columns for better fit */
   gap: 1.5rem;
-  overflow-x: auto;
-  padding: 1rem 0;
+  padding: 1rem 0 2rem;
 }
 
 .kanban-column {
-  background: var(--bg-secondary);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
+  background: #fcfdff;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  padding: 1.25rem;
   min-height: 500px;
-  border-top: 4px solid;
+  border-top: 5px solid;
   transition: all 0.3s ease;
-  color: var(--text-primary);
 }
 
 .kanban-column.dragging-over {
@@ -33,7 +31,9 @@
 
 .column-header h3 {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #2d3748;
 }
 
 .job-count {

@@ -9,6 +9,7 @@ import KanbanBoard from '../components/KanbanBoard';
 import JobModal from '../components/JobModal';
 import AnalyticsDashboard from '../components/AnalyticsDashboard';
 import FilterBar from '../components/FilterBar';
+import BottomNav from '../components/BottomNav';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -26,6 +27,8 @@ function Dashboard() {
     status: '',
     locationType: ''
   });
+
+  const [activeTab, setActiveTab] = useState('home');
 
   useEffect(() => {
     fetchJobs();
@@ -71,6 +74,15 @@ function Dashboard() {
     }
   };
 
+  const handleUpdateStatus = async (jobId, newStatus) => {
+    try {
+      await jobsAPI.updateJob(jobId, { status: newStatus });
+      fetchJobs(); // Refresh to update columns
+    } catch (error) {
+      console.error('Error updating status:', error);
+    }
+  };
+
   const handleDragEnd = async (result) => {
     const { source, destination, draggableId } = result;
 
@@ -111,35 +123,44 @@ function Dashboard() {
     <div className="dashboard-container">
       <Header user={user} onLogout={handleLogout} />
       <div className="dashboard-content">
-        <AnalyticsDashboard jobs={jobs} />
+        {activeTab === 'analysis' && <AnalyticsDashboard jobs={jobs} showCharts={true} />}
         
-        <div className="dashboard-header">
-          <h2>My Job Applications</h2>
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              setSelectedJob(null);
-              setShowModal(true);
-            }}
-          >
-            + Add Job Application
-          </button>
-        </div>
+        <div className="dashboard-header-empty"></div>
 
-        <FilterBar filters={filters} setFilters={setFilters} />
+        {activeTab === 'home' && (
+          <>
+            <AnalyticsDashboard jobs={jobs} showCharts={false} />
+            <div className="search-section-wrapper">
+              <FilterBar filters={filters} setFilters={setFilters} />
+            </div>
+            <div className="board-title-row">
+              <h2>My Job Applications</h2>
+            </div>
+          </>
+        )}
 
         {loading ? (
           <div className="loading">Loading your job applications...</div>
         ) : (
-          <KanbanBoard
-            jobs={filteredJobs}
-            onDragEnd={handleDragEnd}
-            onJobClick={(job) => {
-              setSelectedJob(job);
-              setShowModal(true);
-            }}
-            onDeleteJob={handleDeleteJob}
-          />
+          activeTab === 'home' && (
+            <KanbanBoard
+              jobs={filteredJobs}
+              onDragEnd={handleDragEnd}
+              onJobClick={(job) => {
+                setSelectedJob(job);
+                setShowModal(true);
+              }}
+              onDeleteJob={handleDeleteJob}
+              onUpdateStatus={handleUpdateStatus}
+            />
+          )
+        )}
+
+        {activeTab === 'analysis' && (
+          <div className="analysis-view">
+            {/* You could add more detailed charts here in the future */}
+            <p className="analysis-tip">Tap the stat cards above for more details.</p>
+          </div>
         )}
 
         {showModal && (
@@ -152,6 +173,15 @@ function Dashboard() {
             onSave={selectedJob ? handleUpdateJob : handleAddJob}
           />
         )}
+
+        <BottomNav 
+          activeTab={activeTab} 
+          setActiveTab={setActiveTab} 
+          onAddClick={() => {
+            setSelectedJob(null);
+            setShowModal(true);
+          }} 
+        />
       </div>
     </div>
   );

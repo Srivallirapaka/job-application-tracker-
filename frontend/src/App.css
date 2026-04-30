@@ -1,32 +1,35 @@
 :root {
-  --bg-primary: #f8f9fa;
-  --bg-secondary: #ffffff;
-  --text-primary: #333333;
-  --text-secondary: #666666;
-  --border-color: #e9ecef;
+  --bg-primary: #f8fafc;
+  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+  --text-primary: #2d3748;
+  --text-secondary: #718096;
+  --border-color: #e2e8f0;
   --card-bg: #ffffff;
   --accent-color: #667eea;
+  
+  /* Requested Palette */
+  --blue-soft: #ebf8ff;
+  --blue-text: #3182ce;
+  --orange-soft: #fffaf0;
+  --orange-text: #dd6b20;
+  --green-soft: #f0fff4;
+  --green-text: #38a169;
+  --purple-soft: #faf5ff;
+  --purple-text: #805ad5;
+  
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .app-container {
   min-height: 100vh;
-  background-color: var(--bg-primary);
+  background: var(--bg-gradient);
   color: var(--text-primary);
-}
-
-.header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
+  padding: 0;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
 
-.header h1 {
-  font-size: 1.8rem;
-}
 
 .btn {
   padding: 0.5rem 1rem;

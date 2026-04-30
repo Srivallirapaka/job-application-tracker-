@@ -1,41 +1,104 @@
+.analytics-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .analytics-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.25rem;
   margin-bottom: 2rem;
 }
 
 .stat-card {
   background: white;
-  padding: 1.25rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  padding: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
-  border-left: 4px solid #667eea;
-  transition: transform 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
 .stat-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+}
+
+.stat-card.blue {
+  background-color: var(--blue-soft);
+  color: var(--blue-text);
+}
+
+.stat-card.orange {
+  background-color: var(--orange-soft);
+  color: var(--orange-text);
+}
+
+.stat-card.green {
+  background-color: var(--green-soft);
+  color: var(--green-text);
+}
+
+.stat-card.purple {
+  background-color: var(--purple-soft);
+  color: var(--purple-text);
 }
 
 .stat-label {
   font-size: 0.85rem;
-  color: #888;
-  font-weight: 600;
+  color: inherit;
+  opacity: 0.7;
+  font-weight: 700;
   text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
 }
 
 .stat-value {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #333;
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: inherit;
 }
 
-.highlight-orange { border-left-color: #ff9800; }
-.highlight-green { border-left-color: #4caf50; }
-.highlight-red { border-left-color: #f44336; }
-.highlight-blue { border-left-color: #2196f3; }
-.highlight-purple { border-left-color: #9c27b0; }
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.chart-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chart-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 700;
+}
+
+.chart-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.chart-container {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}

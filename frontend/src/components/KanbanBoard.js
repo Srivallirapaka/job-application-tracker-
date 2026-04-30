@@ -3,7 +3,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import JobCard from './JobCard';
 import './KanbanBoard.css';
 
-function KanbanBoard({ jobs, onDragEnd, onJobClick, onDeleteJob }) {
+function KanbanBoard({ jobs, onDragEnd, onJobClick, onDeleteJob, onUpdateStatus }) {
   const statuses = ['Applied', 'Interview', 'Offer', 'Rejected'];
 
   const getJobsByStatus = (status) => {
@@ -62,6 +62,7 @@ function KanbanBoard({ jobs, onDragEnd, onJobClick, onDeleteJob }) {
                               job={job}
                               onClick={() => onJobClick(job)}
                               onDelete={() => onDeleteJob(job._id)}
+                              onUpdateStatus={onUpdateStatus}
                               isDragging={snapshot.isDragging}
                             />
                           </div>

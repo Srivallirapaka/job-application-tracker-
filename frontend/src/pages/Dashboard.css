@@ -1,51 +1,74 @@
 .dashboard-container {
   min-height: 100vh;
-  background-color: var(--bg-primary);
+  background-color: #f8faff; /* Lighter, fresher background */
 }
 
 .dashboard-content {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
-}
-
-.dashboard-header {
+  padding: 4rem 3rem; /* Generous padding for breathing room */
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
+  flex-direction: column;
+  gap: 2.5rem; /* Consistent vertical gap */
 }
 
-.dashboard-header h2 {
-  font-size: 2rem;
+.dashboard-header-empty {
+  display: none; /* Removed as we use padding on container */
+}
+
+.search-section-wrapper {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.board-title-row {
+  margin: -0.5rem 0 0.5rem; /* Tighter to search bar above it */
+  padding-left: 0.5rem;
+}
+
+.board-title-row h2 {
+  font-size: 1.6rem;
   color: var(--text-primary);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  opacity: 0.9;
 }
 
 .loading {
   text-align: center;
-  padding: 3rem;
+  padding: 5rem;
   font-size: 1.2rem;
-  color: var(--accent-color);
+  color: #667eea;
+  font-weight: 600;
 }
 
-.stat-card {
-  background: var(--card-bg);
-  padding: 1.25rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  display: flex;
-  flex-direction: column;
-  border-left: 4px solid var(--accent-color);
-  transition: transform 0.2s;
+.analysis-view {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
 }
 
-.job-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  padding: 1rem;
-  cursor: grab;
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  color: var(--text-primary);
+.analysis-tip {
+  font-style: italic;
+  font-size: 1rem;
+  color: #a0aec0;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-content {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-content {
+    padding: 1.5rem;
+  }
+  
+  .dashboard-header h2 {
+    font-size: 1.75rem;
+  }
 }

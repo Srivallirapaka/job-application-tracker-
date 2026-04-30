@@ -1,8 +1,8 @@
 import React from 'react';
-import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineArrowRight, AiOutlineCloseCircle, AiOutlineCheckCircle } from 'react-icons/ai';
 import './JobCard.css';
 
-function JobCard({ job, onClick, onDelete, isDragging }) {
+function JobCard({ job, onClick, onDelete, onUpdateStatus, isDragging }) {
   const formatDate = (dateString) => {
     if (!dateString) return 'No date added';
     const date = new Date(dateString);
@@ -52,8 +52,9 @@ function JobCard({ job, onClick, onDelete, isDragging }) {
   return (
     <div className={`job-card ${isDragging ? 'dragging' : ''} ${urgent ? 'urgent-card' : ''}`} onClick={onClick}>
       {urgent && <div className="urgent-badge">⚠️ Interview Soon</div>}
-      <div className="card-header">
-        <div className="title-section">
+      
+      <div className="title-section">
+        <div className="title-main">
           <div className="company-logo">
             {getCompanyInitial(job.companyName)}
           </div>
@@ -64,21 +65,15 @@ function JobCard({ job, onClick, onDelete, isDragging }) {
         </div>
         <div className="card-actions">
           <button
-            className="action-btn edit-btn"
-            onClick={(e) => {
-              e.stopPropagation();
-              onClick();
-            }}
+            className="action-btn"
+            onClick={(e) => { e.stopPropagation(); onClick(); }}
             title="Edit"
           >
             <AiOutlineEdit />
           </button>
           <button
             className="action-btn delete-btn"
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete();
-            }}
+            onClick={(e) => { e.stopPropagation(); onDelete(); }}
             title="Delete"
           >
             <AiOutlineDelete />
@@ -86,36 +81,56 @@ function JobCard({ job, onClick, onDelete, isDragging }) {
         </div>
       </div>
 
-      <div className="card-details">
-        <div className="meta-row">
-          {job.location && <span className="card-meta">📍 {job.location}</span>}
-          {job.jobType && <span className="card-meta">💼 {job.jobType}</span>}
-        </div>
+      <div className="card-meta-row">
+        {job.location && <span className="meta-item">📍 {job.location}</span>}
+        {job.jobType && <span className="meta-item">💼 {job.jobType}</span>}
         {daysSince !== null && (
-          <span className="card-meta days-count">
-            🕒 {daysSince} {daysSince === 1 ? 'day' : 'days'} ago
+          <span className="meta-item">
+            🕒 {daysSince}d ago
           </span>
         )}
       </div>
 
+      <div className="status-quick-actions">
+        {job.status === 'Applied' && (
+          <button 
+            className="quick-status-btn interview"
+            onClick={(e) => { e.stopPropagation(); onUpdateStatus(job._id, 'Interview'); }}
+          >
+            Interview
+          </button>
+        )}
+        {job.status === 'Interview' && (
+          <button 
+            className="quick-status-btn offer"
+            onClick={(e) => { e.stopPropagation(); onUpdateStatus(job._id, 'Offer'); }}
+          >
+            Offer
+          </button>
+        )}
+        {(job.status === 'Applied' || job.status === 'Interview') && (
+          <button 
+            className="quick-status-btn reject"
+            onClick={(e) => { e.stopPropagation(); onUpdateStatus(job._id, 'Rejected'); }}
+          >
+            Reject
+          </button>
+        )}
+      </div>
+
       <div className="card-footer">
-        <span
-          className="priority-badge"
-          style={{ backgroundColor: getPriorityColor(job.priority) }}
-        >
+        <span className={`priority-badge priority-${job.priority?.toLowerCase() || 'low'}`}>
           {job.priority}
         </span>
-        <span className="date-badge">
-          📅 {formatDate(job.createdAt || job.dateApplied)}
+        <span className="date-text">
+          {formatDate(job.createdAt || job.dateApplied)}
         </span>
       </div>
 
       {job.tags && job.tags.length > 0 && (
         <div className="tags">
           {job.tags.slice(0, 2).map((tag, idx) => (
-            <span key={idx} className="tag">
-              {tag}
-            </span>
+            <span key={idx} className="tag">{tag}</span>
           ))}
           {job.tags.length > 2 && <span className="tag-more">+{job.tags.length - 2}</span>}
         </div>

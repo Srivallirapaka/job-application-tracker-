@@ -1,5 +1,5 @@
 import React from 'react';
-import { AiOutlineSearch, AiOutlineFilter } from 'react-icons/ai';
+import { AiOutlineSearch } from 'react-icons/ai';
 import './FilterBar.css';
 
 function FilterBar({ filters, setFilters }) {
@@ -9,53 +9,44 @@ function FilterBar({ filters, setFilters }) {
   };
 
   return (
-    <div className="filter-bar-container">
-      <div className="search-wrapper">
-        <AiOutlineSearch className="search-icon" />
-        <input
-          type="text"
-          name="search"
-          placeholder="Search by company or role..."
-          value={filters.search}
-          onChange={handleChange}
-        />
-      </div>
+    <div className="filter-section">
+      <div className="filter-main-row">
+        <div className="search-wrapper">
+          <AiOutlineSearch className="search-icon-small" />
+          <input
+            type="text"
+            name="search"
+            className="search-input-refined"
+            placeholder="Search by company or role..."
+            value={filters.search}
+            onChange={handleChange}
+          />
+        </div>
 
-      <div className="filters-group">
-        <div className="filter-item">
+        <div className="filter-controls-refined">
           <select name="priority" value={filters.priority} onChange={handleChange}>
-            <option value="">All Priorities</option>
+            <option value="">Priority: All</option>
             <option value="High">High</option>
             <option value="Medium">Medium</option>
             <option value="Low">Low</option>
           </select>
-        </div>
-
-        <div className="filter-item">
+          
           <select name="status" value={filters.status} onChange={handleChange}>
-            <option value="">All Statuses</option>
+            <option value="">Status: All</option>
             <option value="Applied">Applied</option>
             <option value="Interview">Interview</option>
             <option value="Offer">Offer</option>
             <option value="Rejected">Rejected</option>
           </select>
-        </div>
 
-        <div className="filter-item">
-          <select name="locationType" value={filters.locationType} onChange={handleChange}>
-            <option value="">All Locations</option>
-            <option value="Remote">Remote</option>
-            <option value="On-site">On-site</option>
-            <option value="Hybrid">Hybrid</option>
-          </select>
+          <button 
+            className="btn-reset-refined"
+            onClick={() => setFilters({ search: '', priority: '', status: '', locationType: '' })}
+            title="Reset All Filters"
+          >
+            Reset
+          </button>
         </div>
-
-        <button 
-          className="btn-clear"
-          onClick={() => setFilters({ search: '', priority: '', status: '', locationType: '' })}
-        >
-          Reset
-        </button>
       </div>
     </div>
   );
