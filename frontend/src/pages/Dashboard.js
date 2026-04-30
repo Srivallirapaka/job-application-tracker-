@@ -163,6 +163,17 @@ function Dashboard() {
           </div>
         )}
 
+        {activeTab === 'create' && (
+          <div className="create-job-page">
+            <JobModal
+              isFullPage={true}
+              job={null}
+              onClose={() => setActiveTab('home')}
+              onSave={handleAddJob}
+            />
+          </div>
+        )}
+
         {showModal && (
           <JobModal
             job={selectedJob}
@@ -178,8 +189,7 @@ function Dashboard() {
           activeTab={activeTab} 
           setActiveTab={setActiveTab} 
           onAddClick={() => {
-            setSelectedJob(null);
-            setShowModal(true);
+            setActiveTab('create');
           }} 
         />
       </div>

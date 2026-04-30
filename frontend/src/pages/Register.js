@@ -230,23 +230,6 @@ function Register() {
         </Link>
       </div>
 
-      <div className="auth-info">
-        <div className="info-card">
-          <span className="info-icon">📊</span>
-          <h3>Track Applications</h3>
-          <p>Organize all your job applications in one place</p>
-        </div>
-        <div className="info-card">
-          <span className="info-icon">🎯</span>
-          <h3>Kanban Board</h3>
-          <p>Visualize your progress with our Kanban board</p>
-        </div>
-        <div className="info-card">
-          <span className="info-icon">🚀</span>
-          <h3>Get Hired</h3>
-          <p>Manage your job search efficiently</p>
-        </div>
-      </div>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { jobsAPI } from '../services/api';
 import './JobModal.css';
 
-function JobModal({ job, onClose, onSave }) {
+function JobModal({ job, onClose, onSave, isFullPage = false }) {
   const [formData, setFormData] = useState({
     companyName: '',
     jobTitle: '',
@@ -82,15 +82,16 @@ function JobModal({ job, onClose, onSave }) {
     }
   };
 
-  return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h2>{job ? 'Edit Job Application' : 'Add New Job Application'}</h2>
+  const content = (
+    <div className={`modal-content ${isFullPage ? 'full-page-content' : ''}`}>
+      <div className="modal-header">
+        <h2>{job ? 'Edit Job Application' : 'Add New Job Application'}</h2>
+        {!isFullPage && (
           <button className="close-btn" onClick={onClose}>
             <AiOutlineClose />
           </button>
-        </div>
+        )}
+      </div>
 
         {error && <div className="error-message">{error}</div>}
 
@@ -300,9 +301,14 @@ function JobModal({ job, onClose, onSave }) {
             >
               {loading ? 'Saving...' : 'Save Application'}
             </button>
-          </div>
         </form>
       </div>
+    </div>
+  );
+
+  return isFullPage ? content : (
+    <div className="modal-overlay">
+      {content}
     </div>
   );
 }

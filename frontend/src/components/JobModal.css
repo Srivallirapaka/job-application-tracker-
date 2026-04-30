@@ -22,6 +22,16 @@
   color: var(--text-primary);
 }
 
+.full-page-content {
+  max-width: 100%;
+  width: 100%;
+  max-height: none;
+  border-radius: 0;
+  box-shadow: none;
+  min-height: calc(100vh - 140px); /* Adjust for header and nav */
+  background: var(--bg-primary);
+}
+
 .modal-header {
   display: flex;
   justify-content: space-between;
